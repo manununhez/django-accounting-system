@@ -184,7 +184,7 @@ class CustomerModelAbstract(ContactInfoMixIn, TaxCollectionMixIn, CreateUpdateMi
     """
 
     uuid = models.UUIDField(default=uuid4, editable=False, primary_key=True)
-    customer_name = models.CharField(max_length=100)
+    customer_name = models.CharField(max_length=100, verbose_name=_('Customer Name'))
     customer_number = models.CharField(max_length=30, editable=False, verbose_name=_('Customer Number'))
     entity_model = models.ForeignKey('django_ledger.EntityModel',
                                      editable=False,

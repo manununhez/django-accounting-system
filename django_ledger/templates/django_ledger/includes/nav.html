@@ -3,6 +3,7 @@
 {% load cache %}
 {% load i18n %}
 {% now "Y" as current_year %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <nav class="navbar is-light" role="navigation" aria-label="main navigation">
     <div class="container">
@@ -36,6 +37,25 @@
                 </div>
                 <div class="navbar-item">{% feedback_button %}</div>
                 <div class="navbar-item">v{% current_version %}</div>
+                <div class="navbar-item">
+                    <form action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                        <select name="language">
+                            <option value="en-us" 
+                            {% if LANGUAGE_CODE|default:""|lower == "en-us" %}
+                            selected
+                            {% endif %}
+                            >English (US)</option>
+                            <option value="es" 
+                            {% if LANGUAGE_CODE|default:""|lower == "es" %}
+                            selected
+                            {% endif %}
+                            >Español</option>
+                        </select>                                               
+                        <input type="submit" value="Change Language">
+                    </form>
+                </div>
             </div>
         </div>
     </div>

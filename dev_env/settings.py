@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from os.path import join
 
 from django_ledger.settings import DJANGO_LEDGER_GRAPHQL_SUPPORT_ENABLED
 
@@ -37,6 +38,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = 'dev_env.urls'
@@ -90,11 +92,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+    ('en-us', 'English (US)'),
+    ('es', 'Spanish')
+)
+
+LANGUAGE_CODE = 'es'#'en-us'
 
 USE_TZ = True
 TIME_ZONE = 'US/Eastern'
 
+LOCALE_PATHS = [
+    join(BASE_DIR, 'django_ledger', 'locale')
+]
 USE_I18N = True
 USE_L10N = True
 

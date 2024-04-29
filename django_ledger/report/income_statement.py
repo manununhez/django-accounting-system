@@ -5,6 +5,7 @@ from django_ledger.io import IODigestContextManager
 from django_ledger.report.core import BaseReportSupport, PDFReportValidationError
 from django_ledger.settings import DJANGO_LEDGER_CURRENCY_SYMBOL
 from django_ledger.templatetags.django_ledger import currency_symbol, currency_format
+from django.utils.translation import gettext_lazy as _
 
 
 class IncomeStatementReport(BaseReportSupport):
@@ -21,27 +22,27 @@ class IncomeStatementReport(BaseReportSupport):
                 'align': 'L',
             },
             'code': {
-                'title': 'Account Code',
+                'title': _('Account Code'),
                 'spacing': 15,
                 'align': 'L',
             },
             'name': {
-                'title': 'Account Name',
+                'title': _('Account Name'),
                 'spacing': 50,
                 'align': 'C'
             },
             'balance_type': {
-                'title': 'Balance Type',
+                'title': _('Balance Type'),
                 'spacing': 5,
                 'align': 'C'
             },
             'balance': {
-                'title': f'Balance ({DJANGO_LEDGER_CURRENCY_SYMBOL})',
+                'title': f'{_('Balance')} ({DJANGO_LEDGER_CURRENCY_SYMBOL})',
                 'spacing': 10,
                 'align': 'R'
             },
             'total': {
-                'title': f'Total ({DJANGO_LEDGER_CURRENCY_SYMBOL})',
+                'title': f'{_('Total')} ({DJANGO_LEDGER_CURRENCY_SYMBOL})',
                 'spacing': 10,
                 'align': 'R',
                 'style': 'B'
@@ -54,7 +55,7 @@ class IncomeStatementReport(BaseReportSupport):
         return self.IO_DIGEST.get_income_statement_data()
 
     def get_report_name(self) -> str:
-        return 'Income Statement'
+        return _('Income Statement')
 
     def print_section_data(self, section_data):
 
@@ -92,7 +93,7 @@ class IncomeStatementReport(BaseReportSupport):
 
     def print_operating_revenues(self):
 
-        self.print_section_title('Operating Revenues')
+        self.print_section_title(_('Operating Revenues'))
         self.ln(8)
 
         ic_data = self.IO_DIGEST.get_income_statement_data()
